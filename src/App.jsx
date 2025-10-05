@@ -4,11 +4,37 @@ import SearchBar from "./components/SearchBar";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
     setSearchTerm(query);
-    console.log("Searching for:", query);
-    // Later we’ll fetch data from the API here
+    setError("");
+    setBooks([]);
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://openlibrary.org/search.json?title=${encodeURIComponent(query)}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      if (data.docs.length === 0) {
+        setError("No books found for your search.");
+      } else {
+        setBooks(data.docs);
+        console.log("Fetched books:", data.docs); // temporary check
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An error occurred while fetching books. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -17,13 +43,17 @@ function App() {
       <div className="container mx-auto">
         <SearchBar onSearch={handleSearch} />
 
-        {/* Temporary placeholder */}
-        {searchTerm && (
-          <p className="text-center mt-4 text-gray-700">
-            You searched for:{" "}
-            <span className="font-semibold">{searchTerm}</span>
-          </p>
-        )}
+        {/* Display search results or messages */}
+        <div className="mt-6 text-center">
+          {loading && <p className="text-blue-600 font-semibold">Loading...</p>}
+          {error && <p className="text-red-500">{error}</p>}
+          {!loading && !error && books.length > 0 && (
+            <p className="text-gray-700">
+              Found <span className="font-semibold">{books.length}</span> books
+              for “<span className="italic">{searchTerm}</span>”
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
