@@ -2,18 +2,21 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import BookList from "./components/BookList";
+import BookDetails from "./components/BookDetails";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedBook, setSelectedBook] = useState(null);
 
   const handleSearch = async (query) => {
     setSearchTerm(query);
     setError("");
     setBooks([]);
     setLoading(true);
+    setSelectedBook(null);
 
     try {
       const response = await fetch(
@@ -50,11 +53,18 @@ function App() {
                 Found <span className="font-semibold">{books.length}</span>{" "}
                 books for “<span className="italic">{searchTerm}</span>”
               </p>
-              <BookList books={books} />
+              <BookList books={books} onSelect={setSelectedBook} />
             </>
           )}
         </div>
       </div>
+
+      {selectedBook && (
+        <BookDetails
+          book={selectedBook}
+          onClose={() => setSelectedBook(null)}
+        />
+      )}
     </div>
   );
 }

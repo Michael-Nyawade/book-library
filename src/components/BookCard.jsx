@@ -1,11 +1,14 @@
-function BookCard({ book }) {
+function BookCard({ book, onSelect }) {
   const coverId = book.cover_i;
   const coverImage = coverId
     ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`
     : "https://via.placeholder.com/150x200?text=No+Cover";
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 flex flex-col items-center hover:shadow-md transition">
+    <div
+      className="bg-white shadow rounded-lg p-4 flex flex-col items-center hover:shadow-md transition cursor-pointer"
+      onClick={() => onSelect(book)}
+    >
       <img
         src={coverImage}
         alt={book.title}
