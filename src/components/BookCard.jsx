@@ -6,7 +6,7 @@ function BookCard({ book, onSelect }) {
 
   return (
     <div
-      className="bg-white shadow rounded-lg p-4 flex flex-col items-center hover:shadow-md transition cursor-pointer"
+      className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col items-center cursor-pointer transform hover:-translate-y-1"
       onClick={() => onSelect(book)}
     >
       <img
@@ -14,10 +14,10 @@ function BookCard({ book, onSelect }) {
         alt={book.title}
         className="w-32 h-48 object-cover rounded-md mb-3"
       />
-      <h3 className="font-semibold text-gray-800 text-center mb-1">
-        {book.title}
+      <h3 className="font-semibold text-gray-800 text-center text-sm sm:text-base mb-1">
+        {book.title.length > 50 ? book.title.slice(0, 50) + "..." : book.title}
       </h3>
-      <p className="text-gray-500 text-sm text-center">
+      <p className="text-gray-500 text-xs sm:text-sm text-center">
         {book.author_name ? book.author_name.join(", ") : "Unknown Author"}
       </p>
       <p className="text-gray-400 text-xs mt-1">

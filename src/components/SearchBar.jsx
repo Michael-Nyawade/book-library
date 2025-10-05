@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-const SearchBar = ({ onSearch }) => {
+function SearchBar({ onSearch }) {
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim() !== "") {
+    if (query.trim()) {
       onSearch(query);
     }
   };
@@ -13,23 +13,23 @@ const SearchBar = ({ onSearch }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-center items-center mt-6"
+      className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8"
     >
       <input
         type="text"
+        placeholder="Search for books by title, author, or keyword..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for books by title, author, or keyword..."
-        className="w-2/3 md:w-1/2 p-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full sm:w-2/3 lg:w-1/2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
       />
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition"
+        className="w-full sm:w-auto bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
       >
         Search
       </button>
     </form>
   );
-};
+}
 
 export default SearchBar;
