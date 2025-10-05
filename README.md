@@ -1,16 +1,47 @@
-# React + Vite
+# 📚 BookFinder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BookFinder is a simple web app that lets users search for books and view details using the **Open Library API**.  
+It’s part of my **Frontend Development Capstone Project**, built to practice working with APIs, React components, and responsive design.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search for books by title or author
+- View book cover, title, author, and publisher
+- See detailed information about a selected book
+- Responsive design (works on desktop and mobile)
 
-## React Compiler
+## 🛠️ Built With
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React (Vite)** – for building the user interface
+- **Tailwind CSS** – for styling and responsiveness
+- **Open Library API** – for fetching book data
 
-## Expanding the ESLint configuration
+## 🧠 Current Progress
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Right now, the app can search for books and display results.  
+Next steps include improving layout alignment, adding a book details page, and refining the UI.
+
+## 🧩 How to Run the Project
+
+1. Clone this repository
+   ```bash
+   git clone https://github.com/michael-nyawade/book-library.git
+   ```
+2. Navigate to the project folder
+   ```bash
+   cd bookfinder
+   ```
+3. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+4. Run the project
+   ```bash
+   npm run dev
+   ```
+
+## 🌍 API Reference
+
+Data is fetched from the **[Open Library API](https://openlibrary.org/developers/api)**.
