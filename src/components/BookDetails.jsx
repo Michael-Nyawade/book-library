@@ -1,86 +1,88 @@
-import { useEffect, useState } from "react";
+function BookDetails({ book, onBack }) {
+  const coverId = book.covers?.[0];
+  const coverUrl = coverId
+    ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`
+    : "https://via.placeholder.com/300x450?text=No+Cover";
 
-function BookDetails({ book, onClose }) {
-  const [details, setDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const description =
+    typeof book.description === "string"
+      ? book.description
+      : book.description?.value || "No description available.";
 
-  useEffect(() => {
-    if (!book) return;
-
-    const fetchBookDetails = async () => {
-      try {
-        const response = await fetch(`https://openlibrary.org${book.key}.json`);
-        if (!response.ok) throw new Error("Failed to fetch book details");
-        const data = await response.json();
-        setDetails(data);
-      } catch (err) {
-        console.error(err);
-        setError("Could not load book details.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBookDetails();
-  }, [book]);
-
-  if (!book) return null;
+  const subjects = book.subjects?.slice(0, 8) || [];
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-      <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6 relative overflow-y-auto max-h-[90vh]">
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-4 text-gray-400 hover:text-gray-800 text-xl"
-        >
-          ✕
-        </button>
+    <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 md:p-8 transition-all duration-300">
+      {/* Back Button */}
+      <button
+        onClick={onBack}
+        className="mb-6 inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        ← Back to Results
+      </button>
 
-        {loading ? (
-          <p className="text-center text-blue-600 font-medium">Loading...</p>
-        ) : error ? (
-          <p className="text-center text-red-500">{error}</p>
-        ) : (
-          <>
-            <h2 className="text-2xl font-semibold mb-2">{book.title}</h2>
-            <p className="text-gray-600 mb-3">
-              {book.author_name?.join(", ") || "Unknown Author"}
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Book Cover */}
+        <div className="flex-shrink-0 mx-auto md:mx-0">
+          <img
+            src={coverUrl}
+            alt={book.title}
+            className="w-56 h-80 object-cover rounded-lg shadow-md"
+          />
+        </div>
+
+        {/* Book Info */}
+        <div className="flex-1">
+          <h2 className="text-2xl font-bold mb-3 dark:text-gray-100">
+            {book.title}
+          </h2>
+
+          {book.subtitle && (
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
+              {book.subtitle}
             </p>
+          )}
 
-            {details?.description && (
-              <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                {typeof details.description === "string"
-                  ? details.description
-                  : details.description.value}
-              </p>
-            )}
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            First published:{" "}
+            {book.first_publish_date ||
+              book.created?.value?.slice(0, 10) ||
+              "N/A"}
+          </p>
 
-            <ul className="text-sm text-gray-700 space-y-1">
-              {book.first_publish_year && (
-                <li>
-                  <strong>First Published:</strong> {book.first_publish_year}
-                </li>
-              )}
-              {details?.subjects && (
-                <li>
-                  <strong>Subjects:</strong>{" "}
-                  {details.subjects.slice(0, 5).join(", ")}
-                </li>
-              )}
-              {details?.number_of_pages && (
-                <li>
-                  <strong>Pages:</strong> {details.number_of_pages}
-                </li>
-              )}
-              {details?.isbn_10 && (
-                <li>
-                  <strong>ISBN:</strong> {details.isbn_10.join(", ")}
-                </li>
-              )}
-            </ul>
-          </>
-        )}
+          {/* Description */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-2">Description</h3>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              {description}
+            </p>
+          </div>
+
+          {/* Subjects */}
+          {subjects.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-2">Subjects</h3>
+              <div className="flex flex-wrap gap-2">
+                {subjects.map((subject, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 rounded-full text-xs font-medium"
+                  >
+                    {subject}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Add to Reading List */}
+          <button
+            onClick={() => alert("Feature: Save to Reading List")}
+            className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-500 active:bg-blue-700 transition-all duration-200 shadow-md text-sm font-medium"
+          >
+            ➕ Add to Reading List
+          </button>
+        </div>
       </div>
     </div>
   );

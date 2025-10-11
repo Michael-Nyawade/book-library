@@ -1,6 +1,6 @@
-# 📚 BookFinder
+# 📚 Book Library
 
-BookFinder is a simple web app that lets users search for books and view details using the **Open Library API**.  
+Book Library is a simple web app that lets users search for books and view details using the **Open Library API**.  
 It’s part of my **Frontend Development Capstone Project**, built to practice working with APIs, React components, and responsive design.
 
 ## 🚀 Features

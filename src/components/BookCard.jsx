@@ -1,28 +1,44 @@
-function BookCard({ book, onSelect }) {
+function BookCard({ book, onSave }) {
   const coverId = book.cover_i;
-  const coverImage = coverId
-    ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`
-    : "https://via.placeholder.com/150x200?text=No+Cover";
+  const coverUrl = coverId
+    ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`
+    : "https://via.placeholder.com/200x300?text=No+Cover";
+
+  const author = book.author_name?.join(", ") || "Unknown Author";
+  const year = book.first_publish_year || "N/A";
 
   return (
-    <div
-      className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col items-center cursor-pointer transform hover:-translate-y-1"
-      onClick={() => onSelect(book)}
-    >
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full overflow-hidden">
       <img
-        src={coverImage}
+        src={coverUrl}
         alt={book.title}
-        className="w-32 h-48 object-cover rounded-md mb-3"
+        className="w-full h-56 object-cover transition-transform duration-300 hover:scale-105"
+        loading="lazy"
       />
-      <h3 className="font-semibold text-gray-800 text-center text-sm sm:text-base mb-1">
-        {book.title.length > 50 ? book.title.slice(0, 50) + "..." : book.title}
-      </h3>
-      <p className="text-gray-500 text-xs sm:text-sm text-center">
-        {book.author_name ? book.author_name.join(", ") : "Unknown Author"}
-      </p>
-      <p className="text-gray-400 text-xs mt-1">
-        {book.first_publish_year || "N/A"}
-      </p>
+
+      <div className="flex flex-col flex-1 p-4">
+        <h3 className="font-semibold text-lg mb-1 line-clamp-2 dark:text-gray-100">
+          {book.title}
+        </h3>
+
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
+          {author}
+        </p>
+
+        <p className="text-xs text-gray-500 dark:text-gray-500 mb-4">
+          📅 {year}
+        </p>
+
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onSave(book);
+          }}
+          className="mt-auto px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 active:bg-blue-700 transition-colors duration-200 text-sm font-medium shadow-md"
+        >
+          ➕ Add to Reading List
+        </button>
+      </div>
     </div>
   );
 }
