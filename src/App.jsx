@@ -323,13 +323,77 @@ function App() {
           )}
 
           {currentView === "about" && (
-            <div className="max-w-4xl mx-auto mt-6 text-center">
-              <h2 className="text-2xl font-bold mb-4">ℹ️ About This App</h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                This Book Library app was built using React, Tailwind CSS, and
-                the Open Library API. It lets users search for books, view
-                details, and save favorites to a reading list.
+            <div className="max-w-4xl mx-auto mt-10 px-4 text-center">
+              {/* Title */}
+              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+                ℹ️ About This App
+              </h2>
+
+              {/* Intro Paragraph */}
+              <p className="text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+                The{" "}
+                <span className="font-semibold text-blue-600 dark:text-blue-400">
+                  Book Library App
+                </span>
+                is a personal project designed to make discovering and managing
+                books easy, elegant, and fun. You can search for books, view
+                detailed summaries, and save favorites to your reading list —
+                all powered by open data.
               </p>
+
+              {/* Feature Cards */}
+              <div className="grid sm:grid-cols-3 gap-6 mb-10">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="text-4xl mb-3">⚛️</div>
+                  <h3 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
+                    Built with React
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Fast, dynamic, and component-driven — ensuring a smooth user
+                    experience.
+                  </p>
+                </div>
+
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="text-4xl mb-3">🎨</div>
+                  <h3 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
+                    Styled with Tailwind
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Responsive, modern, and minimal design that adapts
+                    beautifully to dark mode.
+                  </p>
+                </div>
+
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="text-4xl mb-3">📚</div>
+                  <h3 className="font-semibold mb-2 text-gray-900 dark:text-gray-100">
+                    Open Library API
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Books and metadata sourced from Open Library — a free,
+                    community-driven book database.
+                  </p>
+                </div>
+              </div>
+
+              {/* Mission / Vision Section */}
+              <div className="bg-blue-50 dark:bg-blue-900/40 rounded-xl p-6 mb-10">
+                <h3 className="text-2xl font-semibold mb-3 text-blue-700 dark:text-blue-300">
+                  🌍 Our Vision
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                  To make reading more accessible to everyone — fostering
+                  curiosity, creativity, and lifelong learning through open
+                  knowledge.
+                </p>
+              </div>
+
+              {/* Footer Note */}
+              <footer className="text-sm text-gray-500 dark:text-gray-400 mt-6">
+                Made with ❤️ using React + Tailwind CSS <br />
+                Powered by the Open Library API
+              </footer>
             </div>
           )}
         </main>
