@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import BookCard from "./components/BookCard";
 import BookDetails from "./components/BookDetails";
+import CategoryPreview from "./components/CategoryPreview";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -264,11 +265,60 @@ function App() {
           )}
 
           {currentView === "categories" && (
-            <div className="max-w-4xl mx-auto mt-6 text-center">
-              <h2 className="text-2xl font-bold mb-4">📂 Categories</h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                Click a genre to explore books by category.
+            <div className="max-w-6xl mx-auto mt-10 px-4 text-center">
+              {/* Title */}
+              <h2 className="text-3xl font-bold mb-4">📚 Explore Categories</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">
+                Browse by genre or search to find your next great read.
               </p>
+
+              {/* Search bar */}
+              <div className="max-w-md mx-auto mb-10">
+                <SearchBar onSearch={handleSearch} />
+              </div>
+
+              {/* Category Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+                {genres.map((genre, index) => {
+                  const icons = [
+                    "📖",
+                    "🔬",
+                    "🏰",
+                    "💞",
+                    "🕵️‍♂️",
+                    "👻",
+                    "🧠",
+                    "🧒",
+                    "🧙‍♂️",
+                    "🪶",
+                  ];
+                  const icon = icons[index % icons.length];
+
+                  return (
+                    <button
+                      key={genre}
+                      onClick={() => handleSearch(genre)}
+                      className="flex flex-col items-center justify-center h-32 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-700"
+                    >
+                      <span className="text-3xl mb-2">{icon}</span>
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">
+                        {genre}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Featured Categories Preview */}
+              <div className="space-y-12">
+                {genres.slice(0, 4).map((genre, index) => (
+                  <CategoryPreview
+                    key={index}
+                    genre={genre}
+                    onGenreClick={handleSearch}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
