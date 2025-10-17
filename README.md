@@ -16,11 +16,6 @@ It’s part of my **Frontend Development Capstone Project**, built to practice w
 - **Tailwind CSS** – for styling and responsiveness
 - **Open Library API** – for fetching book data
 
-## 🧠 Current Progress
-
-Right now, the app can search for books and display results.  
-Next steps include improving layout alignment, adding a book details page, and refining the UI.
-
 ## 🧩 How to Run the Project
 
 1. Clone this repository
